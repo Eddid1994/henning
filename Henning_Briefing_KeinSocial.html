@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>k&einsocial — Mentor Briefing für Henning</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #FAF9F5;
+      color: #1C1C1C;
+      line-height: 1.65;
+    }
+
+    /* HEADER */
+    header {
+      background: #4F0147;
+      color: #fff;
+      padding: 48px 60px 40px;
+    }
+    header .label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #FF0A54;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    header h1 span { color: #FF0A54; }
+    header p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      max-width: 560px;
+    }
+
+    /* SNAPSHOT STRIP */
+    .snapshot {
+      background: #1C1C1C;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+    .snapshot-item {
+      flex: 1;
+      text-align: center;
+      padding: 24px 20px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .snapshot-item:last-child { border-right: none; }
+    .snapshot-item .num {
+      font-size: 26px;
+      font-weight: bold;
+      color: #FF0A54;
+    }
+    .snapshot-item .desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 52px 40px 80px;
+    }
+
+    /* SECTION */
+    .section { margin-bottom: 52px; }
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #FF0A54;
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+    h2 {
+      font-size: 22px;
+      color: #4F0147;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    /* SCORECARD */
+    .scorecard { width: 100%; border-collapse: collapse; }
+    .scorecard th {
+      background: #4F0147;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 12px 16px;
+      text-align: left;
+    }
+    .scorecard td {
+      padding: 14px 16px;
+      font-size: 14px;
+      border-bottom: 1px solid #e8e5df;
+      vertical-align: top;
+    }
+    .scorecard tr:last-child td { border-bottom: none; }
+    .scorecard tr:nth-child(even) td { background: rgba(79,1,71,0.03); }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .badge-red    { background: #ffe5ec; color: #c0002e; }
+    .badge-orange { background: #fff0e0; color: #b85c00; }
+    .badge-yellow { background: #fff8dc; color: #7a6000; }
+    .badge-green  { background: #e6f9ee; color: #1a7a3a; }
+
+    .stars { color: #FF0A54; font-size: 15px; letter-spacing: 1px; }
+    .stars .empty { color: #ddd; }
+
+    /* TWO COLUMNS */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e8e5df;
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .card h3 {
+      font-size: 14px;
+      font-weight: bold;
+      color: #4F0147;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .card ul li {
+      font-size: 14px;
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+      border-bottom: 1px solid #f0ede7;
+    }
+    .card ul li:last-child { border-bottom: none; }
+    .card ul li::before {
+      position: absolute;
+      left: 0;
+      top: 5px;
+    }
+    .card-green li::before { content: "✅"; font-size: 12px; }
+    .card-red li::before   { content: "❌"; font-size: 12px; }
+
+    /* CHALLENGES */
+    .challenge {
+      background: #fff;
+      border-left: 4px solid #FF0A54;
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .challenge .num {
+      font-size: 11px;
+      font-weight: bold;
+      color: #FF0A54;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    .challenge h3 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #4F0147;
+      margin-bottom: 8px;
+    }
+    .challenge p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* QUESTIONS */
+    .q-block {
+      background: #fff;
+      border: 1px solid #e8e5df;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .q-block-header {
+      background: #4F0147;
+      color: #fff;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .q-block-header .icon { font-size: 18px; }
+    .q-block-header h3 {
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .q-block-body { padding: 6px 0; }
+    .question-item {
+      padding: 14px 20px;
+      border-bottom: 1px solid #f0ede7;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 14px;
+    }
+    .question-item:last-child { border-bottom: none; }
+    .q-num {
+      min-width: 26px;
+      height: 26px;
+      background: #FF0A54;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    /* TEAM MAP */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .team-card {
+      background: #fff;
+      border: 1px solid #e8e5df;
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .team-card .name {
+      font-size: 15px;
+      font-weight: bold;
+      color: #4F0147;
+      margin-bottom: 4px;
+    }
+    .team-card .role {
+      font-size: 12px;
+      color: #FF0A54;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .team-card .desc {
+      font-size: 13px;
+      color: #555;
+    }
+    .tag {
+      display: inline-block;
+      background: rgba(79,1,71,0.08);
+      color: #4F0147;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 3px 9px;
+      border-radius: 12px;
+      margin-top: 8px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #4F0147;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+    }
+    footer span { color: #FF0A54; }
+
+    @media (max-width: 640px) {
+      header { padding: 32px 24px; }
+      main { padding: 32px 20px; }
+      .two-col, .team-grid { grid-template-columns: 1fr; }
+      .snapshot { flex-wrap: wrap; }
+      .snapshot-item { min-width: 50%; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="label">Mentor Briefing · Februar 2026</div>
+  <h1>k<span>&</span>einsocial — Status &amp; Fragen für Henning</h1>
+  <p>Eine ehrliche Bestandsaufnahme der Agentur — wo wir stehen, wo wir nicht weiterkommen, und die konkreten Fragen, bei denen ich deine Perspektive brauche.</p>
+</header>
+
+<!-- SNAPSHOT -->
+<div class="snapshot">
+  <div class="snapshot-item">
+    <div class="num">€50k</div>
+    <div class="desc">MRR aktuell</div>
+  </div>
+  <div class="snapshot-item">
+    <div class="num">€120k</div>
+    <div class="desc">MRR Ziel 2026</div>
+  </div>
+  <div class="snapshot-item">
+    <div class="num">11–20</div>
+    <div class="desc">Aktive Kunden</div>
+  </div>
+  <div class="snapshot-item">
+    <div class="num">5</div>
+    <div class="desc">Team (2 fest, 3 Freelancer)</div>
+  </div>
+  <div class="snapshot-item">
+    <div class="num">2.7/5</div>
+    <div class="desc">Agency Health Score</div>
+  </div>
+</div>
+
+<main>
+
+  <!-- WHAT WE DO -->
+  <div class="section">
+    <div class="section-title">Überblick</div>
+    <h2>Was ist k&einsocial?</h2>
+    <p style="font-size:15px; max-width:720px;">
+      k&einsocial ist eine Performance-Marketing-Agentur mit Fokus auf Meta Ads und Google Ads.
+      Wir betreuen 11–20 aktive Kunden — darunter Marken wie Johnny Urban, Bruno Banani und Dr. Emi.
+      Die Agentur läuft seit mehreren Jahren, ist profitabel, und steht jetzt vor dem nächsten
+      Wachstumsschritt: von €50k auf €120k MRR bis Ende 2026.
+    </p>
+  </div>
+
+  <!-- SCORECARD -->
+  <div class="section">
+    <div class="section-title">Health Check</div>
+    <h2>Wo stehen wir — ehrlich bewertet</h2>
+    <table class="scorecard">
+      <thead>
+        <tr>
+          <th>Bereich</th>
+          <th>Score</th>
+          <th>Status</th>
+          <th>Kernaussage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Google Ads Delivery</strong></td>
+          <td>
+            <span class="stars">★★<span class="empty">★★★</span></span>
+          </td>
+          <td><span class="badge badge-red">Kritisch</span></td>
+          <td>Läuft nur wenn Edi dabei ist. Kein Backup. Kein Playbook.</td>
+        </tr>
+        <tr>
+          <td><strong>Meta Ads Delivery</strong></td>
+          <td>
+            <span class="stars">★★★★<span class="empty">★</span></span>
+          </td>
+          <td><span class="badge badge-yellow">Gut</span></td>
+          <td>Cedric managt Meta gut — aber ohne dokumentierten Prozess.</td>
+        </tr>
+        <tr>
+          <td><strong>Client Communication</strong></td>
+          <td>
+            <span class="stars">★★<span class="empty">★★★</span></span>
+          </td>
+          <td><span class="badge badge-red">Kritisch</span></td>
+          <td>Größtes Kundenproblem: Kunden wissen nicht, was wir tun.</td>
+        </tr>
+        <tr>
+          <td><strong>Team &amp; Systeme</strong></td>
+          <td>
+            <span class="stars">★★<span class="empty">★★★</span></span>
+          </td>
+          <td><span class="badge badge-orange">Ausbau nötig</span></td>
+          <td>5 Personen, aber keine SOPs. Alles läuft nach Bauchgefühl.</td>
+        </tr>
+        <tr>
+          <td><strong>Finanzen</strong></td>
+          <td>
+            <span class="stars">★★<span class="empty">★★★</span></span>
+          </td>
+          <td><span class="badge badge-orange">Ausbau nötig</span></td>
+          <td>Kein BWA, kein Dashboard. Wachsen wir gesund? Unklar.</td>
+        </tr>
+        <tr>
+          <td><strong>Self-Marketing</strong></td>
+          <td>
+            <span class="stars">★★★★<span class="empty">★</span></span>
+          </td>
+          <td><span class="badge badge-green">Auf Kurs</span></td>
+          <td>LinkedIn Writer im Einsatz. Gute Richtung, braucht Konsistenz.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- STRENGTHS & WEAKNESSES -->
+  <div class="section">
+    <div class="section-title">SWOT</div>
+    <h2>Was gut läuft — was nicht</h2>
+    <div class="two-col">
+      <div class="card card-green">
+        <h3>✅ Stärken</h3>
+        <ul>
+          <li>Stabile €50k MRR — solide Basis</li>
+          <li>Meta Ads läuft stark unter Cedric</li>
+          <li>Gute Kundenbeziehungen &amp; Retention</li>
+          <li>Steuerberater Hamburg in place</li>
+          <li>LinkedIn Writer / Toolstack im Einsatz</li>
+          <li>Vincenzo + Miandra: Google-System in Entwicklung</li>
+        </ul>
+      </div>
+      <div class="card card-red">
+        <h3>❌ Schwächen</h3>
+        <ul>
+          <li>Google Ads 100% Edi-abhängig</li>
+          <li>Keine SOPs — alles im Kopf einzelner Personen</li>
+          <li>Kunden fühlen sich nicht informiert</li>
+          <li>Vincenzo ohne strukturierte Einarbeitung</li>
+          <li>Edi + Cedric beide operativ — niemand führt strategisch</li>
+          <li>Kein BWA, keine Finanzübersicht</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="section">
+    <div class="section-title">Team</div>
+    <h2>Wer macht was</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="name">Edi</div>
+        <div class="role">CEO &amp; Gründer</div>
+        <div class="desc">Google Ads, Kundenkontakt (non-Meta), Strategie. Steckt zu tief in Operations.</div>
+        <span class="tag">Ziel: Raus aus Ops</span>
+      </div>
+      <div class="team-card">
+        <div class="name">Cedric</div>
+        <div class="role">Meta Media Buyer</div>
+        <div class="desc">Managt Meta-Kunden und deren Kommunikation. Stark operativ, noch nicht strategisch.</div>
+        <span class="tag">Ziel: Wächst in Führung</span>
+      </div>
+      <div class="team-card">
+        <div class="name">Vincenzo</div>
+        <div class="role">Google Ads Expert</div>
+        <div class="desc">Google Ads Experte. Ins kalte Wasser geschmissen. Braucht Struktur und Begleitung.</div>
+        <span class="tag">Ziel: Google-Ownership</span>
+      </div>
+      <div class="team-card">
+        <div class="name">Miandra</div>
+        <div class="role">Freelancer · Analyse</div>
+        <div class="desc">Scannt und analysiert Kunden. Soll Vincenzo die Grundlage für die Umsetzung liefern.</div>
+        <span class="tag">Ziel: Google-System</span>
+      </div>
+      <div class="team-card">
+        <div class="name">Alex</div>
+        <div class="role">Freelancer · Google Ads</div>
+        <div class="desc">Google Ads Support. Unterstützt Vincenzo bei der Umsetzung.</div>
+        <span class="tag">Ziel: System-Support</span>
+      </div>
+      <div class="team-card" style="background:rgba(79,1,71,0.04); border-style:dashed;">
+        <div class="name" style="color:#aaa;">Leo</div>
+        <div class="role" style="color:#bbb;">Finanzen · Coming soon</div>
+        <div class="desc" style="color:#aaa;">Wird BWA und Finanzcontrolling übernehmen. Noch nicht vollständig integriert.</div>
+        <span class="tag" style="background:#f0ede7; color:#999;">In Onboarding</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHALLENGES -->
+  <div class="section">
+    <div class="section-title">Herausforderungen</div>
+    <h2>Die 3 größten Baustellen</h2>
+
+    <div class="challenge">
+      <div class="num">Baustelle #1 · Kritisch</div>
+      <h3>Google läuft nur mit Edi — das muss sich ändern</h3>
+      <p>Solange Google Ads 100% an mir hängt, kann ich weder die Firma strategisch führen noch an MABTED (mein zweites Projekt) arbeiten. Vincenzo und Alex sind da, aber das System Miandra → Vincenzo ist noch nicht funktionsfähig. Ich weiß nicht genau, wie ich diesen Übergang strukturiert hinbekomme ohne Qualität zu verlieren.</p>
+    </div>
+
+    <div class="challenge">
+      <div class="num">Baustelle #2 · Kritisch</div>
+      <h3>Kunden fühlen sich im Dunkeln — Reporting fehlt</h3>
+      <p>Das größte wiederkehrende Kundenproblem: Sie wissen nicht, was wir tun. Wir haben kein standardisiertes Reporting, keine festen Kommunikationsrhythmen. Bei 11–20 Kunden ist das nicht mehr manuell lösbar — wir brauchen ein Template und einen klaren Prozess. Aber wer baut das, wer hält es am Laufen?</p>
+    </div>
+
+    <div class="challenge">
+      <div class="num">Baustelle #3 · Wichtig</div>
+      <h3>Finanzen: Wachsen wir gesund oder blind?</h3>
+      <p>€50k MRR klingt gut — aber ich weiß nicht wie die Margen pro Kunde aussehen, wie unser Cashflow sich entwickelt, und ob wir zu schnell oder zu langsam wachsen. Leo kommt für die BWA, aber ich brauche auch ein mentales Modell: Was sind die 3 Kennzahlen, die ich als Agentur-Gründer wirklich verstehen muss?</p>
+    </div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="section">
+    <div class="section-title">Fragen an Henning</div>
+    <h2>Wo ich deine Perspektive brauche</h2>
+
+    <div class="q-block">
+      <div class="q-block-header">
+        <span class="icon">🏗️</span>
+        <h3>Agency-Aufbau &amp; Skalierung</h3>
+      </div>
+      <div class="q-block-body">
+        <div class="question-item">
+          <div class="q-num">1</div>
+          <div>Wie kommt man als Gründer aus einer operativen Abhängigkeit raus (hier: Google Ads), wenn man selbst der kompetenteste ist — ohne Qualitätsverlust in der Übergangsphase?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">2</div>
+          <div>Wie gut muss ein SOP sein, bevor ich ihn loslasse? Ab wann überoptimiert man und verpasst den Moment, wirklich loszulassen?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">3</div>
+          <div>Was war bei deiner Agentur der Moment, in dem du aufgehört hast, Operator zu sein — und angefangen hast, CEO zu sein? Was hat das konkret verändert?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-header">
+        <span class="icon">💰</span>
+        <h3>Finanzen &amp; Controlling</h3>
+      </div>
+      <div class="q-block-body">
+        <div class="question-item">
+          <div class="q-num">1</div>
+          <div>Was sind die 3–5 Kennzahlen, die eine Performance-Agentur dieser Größe (€50k MRR, 11–20 Kunden) monatlich im Blick haben muss?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">2</div>
+          <div>Wie erkenne ich ob wir gesund wachsen — was sind Warnsignale für "zu schnell" oder "zu langsam"?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">3</div>
+          <div>Wie strukturierst du Pricing und Marge pro Kunde? Gibt es Kunden, die uns mehr kosten als sie bringen — und wie findet man das heraus?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-header">
+        <span class="icon">👥</span>
+        <h3>Team &amp; Führung</h3>
+      </div>
+      <div class="q-block-body">
+        <div class="question-item">
+          <div class="q-num">1</div>
+          <div>Wie führe ich ein junges, noch unerfahrenes Team (Vincenzo, Cedric) so, dass sie wachsen — ohne dass ich sie micromanage oder übermäßig absichere?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">2</div>
+          <div>Wie spreche ich mit einem Mitarbeiter (Cedric) darüber, dass ich möchte, dass er mehr Verantwortung übernimmt und strategischer denkt — ohne Druck aufzubauen?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">3</div>
+          <div>Was ist deiner Erfahrung nach die häufigste Führungsfalle für Gründer, die von Operator zu CEO werden wollen?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-header">
+        <span class="icon">📈</span>
+        <h3>Sales &amp; Wachstum</h3>
+      </div>
+      <div class="q-block-body">
+        <div class="question-item">
+          <div class="q-num">1</div>
+          <div>Wie skaliere ich KeinSocial von €50k auf €120k MRR — ohne die Delivery-Qualität zu gefährden und ohne selbst mehr Sales zu machen?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">2</div>
+          <div>Wann ist der richtige Zeitpunkt für einen dedizierten Salesman — und was muss intern stabil sein, bevor man Wachstum über Sales forciert?</div>
+        </div>
+        <div class="question-item">
+          <div class="q-num">3</div>
+          <div>Wie baut man Referral- oder Empfehlungs-Sales auf, wenn man gute Kunden hat aber keine Zeit für aktiven Vertrieb?</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Erstellt für das Mentor-Meeting mit Henning · <span>k&einsocial</span> · Februar 2026 · edi@keinsocial.com
+</footer>
+
+</body>
+</html>
